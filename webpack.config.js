@@ -1,4 +1,7 @@
+const path = require('path');
 const MiniCsssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 let mode = 'development';
 
@@ -11,6 +14,7 @@ module.exports = {
     devtool: 'source-map',
 
     output: {
+        path: path.resolve(__dirname, 'dist'),
         assetModuleFilename: 'images/[hash][ext][query]'
     },
 
@@ -42,7 +46,12 @@ module.exports = {
         ]
     },
 
-    plugins: [new MiniCsssExtractPlugin()],
+    plugins: [
+        new CleanWebpackPlugin(),
+        new MiniCsssExtractPlugin(), 
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+    })],
 
     resolve: {
         extensions: [".js", ".jsx"]
